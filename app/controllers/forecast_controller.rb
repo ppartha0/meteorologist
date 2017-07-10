@@ -10,23 +10,22 @@ class ForecastController < ApplicationController
     @lat = params[:user_latitude]
     @lng = params[:user_longitude]
 
-    # ==========================================================================
-    # Your code goes below.
-    # The latitude the user input is in the string @lat.
-    # The longitude the user input is in the string @lng.
-    # ==========================================================================
+   dark_sky_base_url = "https://api.darksky.net/forecast/94d35dfb00b4758d878609681c92ea32/"
+   weather_url = dark_sky_base_url + @lat + "," + @lng
+   raw_data = open(weather_url).read
+   parsed_data = JSON.parse(raw_data)
+   
 
 
+    @current_temperature = parsed_data["currently"]["temperature"]
 
-    @current_temperature = "Replace this string with your answer."
+    @current_summary = parsed_data["currently"]["summary"]
 
-    @current_summary = "Replace this string with your answer."
+    @summary_of_next_sixty_minutes = parsed_data.dig("minutely", "summary")
 
-    @summary_of_next_sixty_minutes = "Replace this string with your answer."
+    @summary_of_next_several_hours = parsed_data.dig("hourly", "summary")
 
-    @summary_of_next_several_hours = "Replace this string with your answer."
-
-    @summary_of_next_several_days = "Replace this string with your answer."
+    @summary_of_next_several_days = parsed_data.dig("daily", "summary")
 
     render("forecast/coords_to_weather.html.erb")
   end
