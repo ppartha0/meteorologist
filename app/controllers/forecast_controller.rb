@@ -26,7 +26,7 @@ class ForecastController < ApplicationController
     @summary_of_next_several_hours = parsed_data.dig("hourly", "summary")
 
     @summary_of_next_several_days = parsed_data.dig("daily", "summary")
-
+    
     render("forecast/coords_to_weather.html.erb")
   end
 end

@@ -20,7 +20,7 @@ class GeocodingController < ApplicationController
    location_data = parsed_data["results"][0]["geometry"]["location"]
     @latitude = location_data["lat"]
     @longitude = location_data["lng"]
-
-    render("geocoding/street_to_coords.html.erb")
+  
+  render("geocoding/street_to_coords.html.erb")
   end
 end
